@@ -1,0 +1,60 @@
+<link rel="stylesheet" href="style.css">
+<div class="container">
+    <h1>Welcome, My Love 🫶</h1>
+    <p>This is our special place to keep our memories forever.</p>
+    <p>I love you always, My Luna 🌙🪐💫⭐</p>
+    
+   <script>
+    // Load existing diary entries on page load
+    document.addEventListener("DOMContentLoaded", function() {
+        let savedEntries = localStorage.getItem("diaryEntries");
+        if (savedEntries) {
+            document.getElementById("entries").innerHTML = savedEntries;
+        }
+    });
+
+    function addEntry() {
+        let text = prompt("Write your diary entry, bebu:🙈");
+        if (text) {
+            let entry = document.createElement("div");
+            entry.className = "entry";
+            entry.innerHTML = `<p>${text}</p>`;
+            document.getElementById("entries").appendChild(entry);
+
+            // Save to local storage
+            saveEntries();
+        }
+    }
+
+    function previewPhoto(event) {
+        let file = event.target.files[0];
+        if (file) {
+            let reader = new FileReader();
+            reader.onload = function(e) {
+                let img = document.createElement("img");
+                img.src = e.target.result;
+                document.getElementById("entries").appendChild(img);
+                
+                // Save to local storage
+                saveEntries();
+            }
+            reader.readAsDataURL(file);
+        }
+    }
+
+    function saveEntries() {
+        localStorage.setItem("diaryEntries", document.getElementById("entries").innerHTML);
+    }
+</script>
+</script>
+
+    <div class="buttons">
+        <button onclick="addEntry()">➕ Add Diary Entry</button>
+<input type="file" id="photoInput" accept="image/*" style="display: none;" onchange="previewPhoto(event)">
+<button onclick="document.getElementById('photoInput').click()">📷 Add Photo</button>
+<div id="entries"></div> <!-- This is where diary entries and photos will appear -->
+
+    
+    <div id="entries" class="entries-container"></div>
+</div>
+
